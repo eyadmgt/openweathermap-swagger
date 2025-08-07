@@ -1,0 +1,36 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "OpenWeatherMap API"
+  },
+  "host": "api.openweathermap.org",
+  "basePath": "/data/2.5",
+  "schemes": ["http"],
+  "paths": {
+    "/weather": {
+      "get": {
+        "summary": "Get current weather",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "appid",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    }
+  }
+}
