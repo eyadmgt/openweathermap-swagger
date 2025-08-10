@@ -13,10 +13,18 @@
         "summary": "Get current weather",
         "parameters": [
           {
-            "name": "q",
+            "name": "lat",
             "in": "query",
             "required": true,
-            "type": "string"
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "float"
           },
           {
             "name": "appid",
@@ -24,7 +32,8 @@
             "required": true,
             "type": "string"
           }
-        ],
+        ]
+        ,
         "responses": {
           "200": {
             "description": "Successful response"
@@ -34,3 +43,4 @@
     }
   }
 }
+
