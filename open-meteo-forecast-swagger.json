@@ -1,0 +1,71 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Open-Meteo Forecast (current) - JSON"
+  },
+  "schemes": ["https"],
+  "host": "api.open-meteo.com",
+  "basePath": "/",
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/v1/forecast": {
+      "get": {
+        "summary": "Get current weather by coordinates (Open-Meteo)",
+        "description": "Returns current weather for a given latitude/longitude using Open-Meteo. No API key required.",
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "float"
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Comma-separated list of current variables, e.g. temperature_2m,relative_humidity_2m,wind_speed_10m"
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "IANA timezone, e.g. Asia/Riyadh"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (JSON)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "latitude": {"type": "number"},
+                "longitude": {"type": "number"},
+                "timezone": {"type": "string"},
+                "current_units": {
+                  "type": "object",
+                  "additionalProperties": {"type": "string"}
+                },
+                "current": {
+                  "type": "object",
+                  "additionalProperties": {"type": ["number", "string"]}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
