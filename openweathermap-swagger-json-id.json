@@ -1,0 +1,116 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "OpenWeather - Group Current Weather (JSON)"
+  },
+  "schemes": ["https"],
+  "host": "api.openweathermap.org",
+  "basePath": "/data/2.5",
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/group": {
+      "get": {
+        "summary": "Get current weather for multiple city IDs",
+        "description": "Returns current weather for a comma-separated list of city IDs. Response is JSON only.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Comma-separated list of city IDs, e.g., 105343,108410"
+          },
+          {
+            "name": "appid",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "OpenWeather API key"
+          },
+          {
+            "name": "units",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": ["standard", "metric", "imperial"],
+            "default": "standard"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Language code for weather description"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cnt": {"type": "integer"},
+                "list": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {"type": "integer"},
+                      "name": {"type": "string"},
+                      "coord": {
+                        "type": "object",
+                        "properties": {
+                          "lon": {"type": "number"},
+                          "lat": {"type": "number"}
+                        }
+                      },
+                      "weather": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {"type": "integer"},
+                            "main": {"type": "string"},
+                            "description": {"type": "string"},
+                            "icon": {"type": "string"}
+                          }
+                        }
+                      },
+                      "main": {
+                        "type": "object",
+                        "properties": {
+                          "temp": {"type": "number"},
+                          "feels_like": {"type": "number"},
+                          "temp_min": {"type": "number"},
+                          "temp_max": {"type": "number"},
+                          "pressure": {"type": "number"},
+                          "humidity": {"type": "number"}
+                        }
+                      },
+                      "wind": {
+                        "type": "object",
+                        "properties": {
+                          "speed": {"type": "number"},
+                          "deg": {"type": "number"},
+                          "gust": {"type": "number"}
+                        }
+                      },
+                      "dt": {"type": "integer"},
+                      "sys": {
+                        "type": "object",
+                        "properties": { "country": {"type": "string"} }
+                      },
+                      "timezone": {"type": "integer"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
