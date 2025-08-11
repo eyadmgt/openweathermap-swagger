@@ -1,0 +1,178 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Open-Meteo Forecast (Multi-location current)",
+    "description": "GET /v1/forecast for multiple coordinates. Returns a top-level JSON array; one object per coordinate with current conditions."
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "api.open-meteo.com",
+  "basePath": "/v1",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/forecast": {
+      "get": {
+        "operationId": "GetCurrentWeatherMulti",
+        "summary": "Get current weather for multiple coordinates",
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Comma-separated list of latitudes (e.g., 21.4901,24.6877,51.5085)"
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Comma-separated list of longitudes (e.g., 39.1862,46.7219,-0.1257)"
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Comma-separated list of current variables to include",
+            "default": "temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code"
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "IANA timezone (e.g., Asia/Riyadh) or 'auto' to infer from coordinates",
+            "default": "auto"
+          },
+          {
+            "name": "temperature_unit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "celsius",
+              "fahrenheit"
+            ],
+            "default": "celsius"
+          },
+          {
+            "name": "wind_speed_unit",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "kmh",
+              "ms",
+              "mph",
+              "kn"
+            ],
+            "default": "kmh"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (array of locations)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "latitude": {
+                    "type": "number"
+                  },
+                  "longitude": {
+                    "type": "number"
+                  },
+                  "generationtime_ms": {
+                    "type": "number"
+                  },
+                  "utc_offset_seconds": {
+                    "type": "integer"
+                  },
+                  "timezone": {
+                    "type": "string"
+                  },
+                  "timezone_abbreviation": {
+                    "type": "string"
+                  },
+                  "elevation": {
+                    "type": "number"
+                  },
+                  "location_id": {
+                    "type": "integer"
+                  },
+                  "current_units": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "string"
+                      },
+                      "interval": {
+                        "type": "string"
+                      },
+                      "temperature_2m": {
+                        "type": "string"
+                      },
+                      "relative_humidity_2m": {
+                        "type": "string"
+                      },
+                      "wind_speed_10m": {
+                        "type": "string"
+                      },
+                      "wind_direction_10m": {
+                        "type": "string"
+                      },
+                      "wind_gusts_10m": {
+                        "type": "string"
+                      },
+                      "weather_code": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "current": {
+                    "type": "object",
+                    "properties": {
+                      "time": {
+                        "type": "string"
+                      },
+                      "interval": {
+                        "type": "integer"
+                      },
+                      "temperature_2m": {
+                        "type": "number"
+                      },
+                      "relative_humidity_2m": {
+                        "type": "number"
+                      },
+                      "wind_speed_10m": {
+                        "type": "number"
+                      },
+                      "wind_direction_10m": {
+                        "type": "number"
+                      },
+                      "wind_gusts_10m": {
+                        "type": "number"
+                      },
+                      "weather_code": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
